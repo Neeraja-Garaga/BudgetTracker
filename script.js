@@ -7,8 +7,6 @@ const textInput = document.getElementById('text');
 const amountInput = document.getElementById('amount');
 
 let transactions = [];
-
-// Add Transaction
 function addTransaction(e) {
   e.preventDefault();
 
@@ -29,13 +27,9 @@ function addTransaction(e) {
   textInput.value = '';
   amountInput.value = '';
 }
-
-// Generate Unique ID
 function generateID() {
   return Math.floor(Math.random() * 100000000);
 }
-
-// Add Transaction to DOM
 function addTransactionDOM(transaction) {
   const sign = transaction.amount < 0 ? '-' : '+';
   const li = document.createElement('li');
@@ -48,8 +42,6 @@ function addTransactionDOM(transaction) {
 
   transactionList.appendChild(li);
 }
-
-// Update Balance, Income & Expense
 function updateValues() {
   const amounts = transactions.map(transaction => transaction.amount);
 
@@ -61,14 +53,10 @@ function updateValues() {
   incomeDisplay.innerText = `$${income}`;
   expenseDisplay.innerText = `$${expense}`;
 }
-
-// Remove Transaction
 function removeTransaction(id) {
   transactions = transactions.filter(transaction => transaction.id !== id);
   init();
 }
-
-// Initialize App
 function init() {
   transactionList.innerHTML = '';
   transactions.forEach(addTransactionDOM);
