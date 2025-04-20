@@ -33,18 +33,15 @@
       <label for="text">Description</label>
       <input type="text" id="text" placeholder="Enter description..." required />
 
-      <label for="amount">Amount (positive for income, negative for expense)</label>
-       <label>Type</label>
-      <select id="type">
-        <option value="income">Income</option>
-        <option value="expense">Expense</option>
-      </select>
+      <label for="amount">Amount </label>
 
       <input type="number" id="amount" placeholder="Enter amount..." required />
+      <button onclick="addTransaction('income')">Income</button>
+  <button onclick="addTransaction('expense')">Expense</button>
 
       <button type="submit">Add Transaction</button>
-    </form>
-  </div>
+      
+    </form>  </div>
 
   <script src="script.js"></script>
 </body>
