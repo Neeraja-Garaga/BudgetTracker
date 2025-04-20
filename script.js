@@ -7,6 +7,12 @@ const textInput = document.getElementById('text');
 const amountInput = document.getElementById('amount');
 
 let transactions = [];
+let transactionType = 'income'; // default type
+
+function setTransactionType(type) {
+  transactionType = type;
+}
+
 function addTransaction(e) {
   e.preventDefault();
 
@@ -18,7 +24,9 @@ function addTransaction(e) {
   const transaction = {
     id: generateID(),
     text: textInput.value,
-    amount: parseFloat(amountInput.value)
+    amount: transactionType === 'expense'
+      ? -Math.abs(parseFloat(amountInput.value))
+      : Math.abs(parseFloat(amountInput.value))
   };
 
   transactions.push(transaction);
@@ -27,9 +35,11 @@ function addTransaction(e) {
   textInput.value = '';
   amountInput.value = '';
 }
+
 function generateID() {
   return Math.floor(Math.random() * 100000000);
 }
+
 function addTransactionDOM(transaction) {
   const sign = transaction.amount < 0 ? '-' : '+';
   const li = document.createElement('li');
@@ -42,6 +52,7 @@ function addTransactionDOM(transaction) {
 
   transactionList.appendChild(li);
 }
+
 function updateValues() {
   const amounts = transactions.map(transaction => transaction.amount);
 
@@ -53,10 +64,12 @@ function updateValues() {
   incomeDisplay.innerText = `$${income}`;
   expenseDisplay.innerText = `$${expense}`;
 }
+
 function removeTransaction(id) {
   transactions = transactions.filter(transaction => transaction.id !== id);
   init();
 }
+
 function init() {
   transactionList.innerHTML = '';
   transactions.forEach(addTransactionDOM);
